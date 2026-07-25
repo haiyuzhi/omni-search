@@ -473,7 +473,7 @@ fn delete_path(
         let c_path = CString::new(path).map_err(|_| "Invalid path parameter".to_string())?;
         let ok = unsafe { omni_delete_path(c_path.as_ptr(), recycle_bin) };
         if !ok {
-            return Err(read_last_error().unwrap_or_else(|| "Delete failed".to_string()));
+            return Err(read_last_error().unwrap_or_else(|| "删除失败".to_string()));
         }
         return Ok(true);
     }
@@ -481,7 +481,7 @@ fn delete_path(
     #[cfg(not(target_os = "windows"))]
     {
         let _ = (path, recycle_bin, recycleBin);
-        Err("Delete is only supported on Windows.".to_string())
+        Err("删除仅支持 Windows 系统。".to_string())
     }
 }
 
@@ -711,7 +711,7 @@ fn open_path_in_console(path: String) -> Result<(), String> {
     #[cfg(not(target_os = "windows"))]
     {
         let _ = path;
-        Err("Opening a console for a path is only supported on Windows.".to_string())
+        Err("通过路径打开控制台仅支持 Windows 系统。".to_string())
     }
 }
 
@@ -814,7 +814,7 @@ fn open_external_url(app: tauri::AppHandle, url: String) -> Result<(), String> {
     #[cfg(not(target_os = "windows"))]
     {
         let _ = (app, url);
-        Err("Opening external links is only supported on Windows.".to_string())
+        Err("打开外部链接仅支持 Windows 系统。".to_string())
     }
 }
 

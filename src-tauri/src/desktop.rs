@@ -935,19 +935,19 @@ fn setup_system_tray<R: Runtime>(app: &mut App<R>) -> tauri::Result<()> {
     let open_quick_item = MenuItem::with_id(
         app,
         TRAY_MENU_OPEN_QUICK_ID,
-        "Open Quick Window",
+        "打开快捷窗口",
         true,
         None::<&str>,
     )?;
     let open_full_item = MenuItem::with_id(
         app,
         TRAY_MENU_OPEN_FULL_ID,
-        "Open Main App",
+        "打开主程序",
         true,
         None::<&str>,
     )?;
-    let hide_item = MenuItem::with_id(app, TRAY_MENU_HIDE_ID, "Hide", true, None::<&str>)?;
-    let quit_item = MenuItem::with_id(app, TRAY_MENU_QUIT_ID, "Quit", true, None::<&str>)?;
+    let hide_item = MenuItem::with_id(app, TRAY_MENU_HIDE_ID, "隐藏", true, None::<&str>)?;
+    let quit_item = MenuItem::with_id(app, TRAY_MENU_QUIT_ID, "退出", true, None::<&str>)?;
     let tray_menu = Menu::with_items(
         app,
         &[&open_quick_item, &open_full_item, &hide_item, &quit_item],

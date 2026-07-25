@@ -3742,7 +3742,7 @@ function App() {
       showActionNotice(`Queued ${successCount} files for phone.`);
     }
     if (failCount > 0) {
-      setActionError(errorMessages[0] || "Failed to send some files to phone.");
+      setActionError(errorMessages[0] || "向手机发送部分文件失败。");
     }
   }
 
@@ -3800,7 +3800,7 @@ function App() {
       showActionNotice(`Deleted ${deletedCount} items.`);
     }
     if (failCount > 0) {
-      setActionError(errorMessages[0] || "Failed to delete some items.");
+      setActionError(errorMessages[0] || "删除部分项目失败。");
     }
   }
 
@@ -3897,7 +3897,7 @@ function App() {
       showActionNotice(`Renamed items.`);
     }
     if (failCount > 0) {
-      setActionError(errorMessages[0] || "Failed to rename some items.");
+      setActionError(errorMessages[0] || "重命名部分项目失败。");
     }
   }
 
@@ -4535,7 +4535,7 @@ function App() {
       setDesktopSettingsMessage(
         savedSettings.shortcutEnabled
           ? `Saved. ${savedSettings.shortcut} is active immediately.`
-          : "Saved. The global shortcut is now disabled.",
+          : "已保存。全局快捷键现已禁用。",
       );
     } catch (error) {
       setDesktopSettingsError(`Failed to save desktop settings: ${String(error)}`);
@@ -5885,7 +5885,7 @@ function App() {
       <main className={`spotlight-panel ${isQuickMode ? "spotlight-panel-quick" : ""}`}>
         <header className={`panel-header ${isQuickMode ? "quick-panel-header" : ""}`}>
           <div className="panel-title-block">
-            {isQuickMode ? <span className="quick-mode-badge">Quick Window</span> : null}
+            {isQuickMode ? <span className="quick-mode-badge">快捷窗口</span> : null}
             {!isQuickMode ? <h1>OmniSearch</h1> : null}
           </div>
           <div className={`header-tools ${isQuickMode ? "quick-header-tools" : ""}`}>
@@ -5939,14 +5939,12 @@ function App() {
                       setDesktopSettingsError(`Failed to open the full workspace: ${String(error)}`);
                     });
                   }}
-                >
-                  Full workspace
-                </button>
+                >完整工作区</button>
               </>
             ) : (
               <>
                 <label className="drive-picker" htmlFor="drive-picker">
-                  <span>Drive</span>
+                  <span>驱动器</span>
                   <select
                     id="drive-picker"
                     value={selectedDrive}
@@ -5967,7 +5965,7 @@ function App() {
                 <label
                   className="scan-switch"
                   htmlFor="all-drives-toggle"
-                  title="Scan all NTFS drives before search. Uses more time and resources."
+                  title="搜索前扫描所有 NTFS 驱动器。会消耗更多时间和资源。"
                 >
                   <input
                     id="all-drives-toggle"
@@ -5980,12 +5978,12 @@ function App() {
                     }}
                   />
                   <span className="scan-switch-slider" aria-hidden="true" />
-                  <span>Scan all drives</span>
+                  <span>扫描所有驱动器</span>
                 </label>
                 <label
                   className="scan-option"
                   htmlFor="include-folders-toggle"
-                  title="Include folders in index."
+                  title="将文件夹纳入索引。"
                 >
                   <input
                     id="include-folders-toggle"
@@ -5997,72 +5995,58 @@ function App() {
                       void reindexWithConfig(nextIncludeFolders, includeAllDrives);
                     }}
                   />
-                  <span>Include folders</span>
+                  <span>包含文件夹</span>
                 </label>
-                <button type="button" className="ghost-button" onClick={reindex}>
-                  Reindex
-                </button>
+                <button type="button" className="ghost-button" onClick={reindex}>重新索引</button>
               </>
             )}
           </div>
         </header>
 
         {!isQuickMode ? (
-          <nav className="tab-row" aria-label="Main sections">
+          <nav className="tab-row" aria-label="主要板块">
             <button
               type="button"
               className={`tab ${activeTab === "search" ? "is-active" : ""}`}
               onClick={() => {
                 setActiveTab("search");
               }}
-            >
-              Search
-            </button>
+            >搜索</button>
             <button
               type="button"
               className={`tab ${activeTab === "duplicates" ? "is-active" : ""}`}
               onClick={() => {
                 setActiveTab("duplicates");
               }}
-            >
-              Duplicates
-            </button>
+            >重复文件</button>
             <button
               type="button"
               className={`tab ${activeTab === "advanced" ? "is-active" : ""}`}
               onClick={() => {
                 setActiveTab("advanced");
               }}
-            >
-              Settings
-            </button>
+            >设置</button>
             <button
               type="button"
               className={`tab ${activeTab === "themes" ? "is-active" : ""}`}
               onClick={() => {
                 setActiveTab("themes");
               }}
-            >
-              Themes
-            </button>
+            >主题</button>
             <button
               type="button"
               className={`tab ${activeTab === "syntax" ? "is-active" : ""}`}
               onClick={() => {
                 openSearchSyntaxHelp();
               }}
-            >
-              Syntax
-            </button>
+            >语法</button>
             <button
               type="button"
               className={`tab ${activeTab === "about" ? "is-active" : ""}`}
               onClick={() => {
                 setActiveTab("about");
               }}
-            >
-              About
-            </button>
+            >关于</button>
             <button
               type="button"
               className={`tab ${activeTab === "sync" ? "is-active" : ""}`}
@@ -6106,7 +6090,7 @@ function App() {
             <button
               type="button"
               className="ghost-button tab-row-action"
-              title="Open quick window"
+              title="打开快捷窗口"
               onClick={() => {
                 void openQuickWindow().catch((error) => {
                   setDesktopSettingsError(`Failed to open the quick window: ${String(error)}`);
@@ -6119,7 +6103,7 @@ function App() {
         ) : null}
 
         {activeTab === "search" ? (
-          <section className={`tab-panel ${isQuickMode ? "quick-tab-panel" : ""}`} aria-label="Search files">
+          <section className={`tab-panel ${isQuickMode ? "quick-tab-panel" : ""}`} aria-label="搜索文件">
             <div className={`status-row ${isQuickMode ? "quick-status-row" : ""}`}>
               <span
                 className={`status-dot ${status.indexing || indexSyncing ? "live" : status.ready ? "ready" : "idle"
@@ -6148,14 +6132,14 @@ function App() {
                 autoCorrect="off"
                 spellCheck={false}
                 onChange={(event) => setQuery(event.currentTarget.value)}
-                placeholder="Type to search across indexed items..."
+                placeholder="输入以搜索已索引的项目……"
                 autoFocus
               />
               {query.length > 0 ? (
                 <button
                   type="button"
                   className="search-input-clear"
-                  aria-label="Clear search"
+                  aria-label="清除搜索"
                   onMouseDown={(event) => {
                     event.preventDefault();
                   }}
@@ -6171,8 +6155,8 @@ function App() {
               <button
                 type="button"
                 className="search-input-folder-btn"
-                aria-label="Open folder"
-                title="Open folder"
+                aria-label="打开文件夹"
+                title="打开文件夹"
                 style={{ right: query.length > 0 ? "40px" : "12px" }}
                 onMouseDown={(event) => {
                   event.preventDefault();
@@ -6195,9 +6179,7 @@ function App() {
 
             {!effectiveSearchMetricsHidden ? (
               <section className={`filter-grid ${isQuickMode ? "quick-filter-grid" : ""}`}>
-                <label>
-                  Extension
-                  <div className="filter-input-shell">
+                <label>扩展名<div className="filter-input-shell">
                     <input
                       ref={extensionInputRef}
                       type="text"
@@ -6207,13 +6189,13 @@ function App() {
                       autoCorrect="off"
                       spellCheck={false}
                       onChange={(event) => setExtension(event.currentTarget.value)}
-                      placeholder=".mp4 or folder"
+                      placeholder=".mp4 或文件夹"
                     />
                     {extension.trim().length > 0 ? (
                       <button
                         type="button"
                         className="filter-input-clear"
-                        aria-label="Clear extension filter"
+                        aria-label="清除扩展名筛选"
                         onMouseDown={(event) => {
                           event.preventDefault();
                         }}
@@ -6227,9 +6209,7 @@ function App() {
                     ) : null}
                   </div>
                 </label>
-                <label>
-                  Min size (MB)
-                  <NumberInputField
+                <label>最小大小（MB）<NumberInputField
                     min={0}
                     step={1}
                     value={minSizeMb}
@@ -6239,9 +6219,7 @@ function App() {
                     onChange={setMinSizeMb}
                   />
                 </label>
-                <label>
-                  Max size (MB)
-                  <NumberInputField
+                <label>最大大小（MB）<NumberInputField
                     min={0}
                     step={1}
                     value={maxSizeMb}
@@ -6251,9 +6229,7 @@ function App() {
                     onChange={setMaxSizeMb}
                   />
                 </label>
-                <label>
-                  Created after
-                  <div className="date-input-shell">
+                <label>创建时间晚于<div className="date-input-shell">
                     <input
                       ref={createdAfterInputRef}
                       type="date"
@@ -6264,7 +6240,7 @@ function App() {
                     <button
                       type="button"
                       className="date-input-trigger"
-                      aria-label="Open created after date picker"
+                      aria-label="打开“创建时间晚于”日期选择器"
                       onClick={() => {
                         openDateInputPicker(createdAfterInputRef.current);
                       }}
@@ -6273,9 +6249,7 @@ function App() {
                     </button>
                   </div>
                 </label>
-                <label>
-                  Created before
-                  <div className="date-input-shell">
+                <label>创建时间早于<div className="date-input-shell">
                     <input
                       ref={createdBeforeInputRef}
                       type="date"
@@ -6286,7 +6260,7 @@ function App() {
                     <button
                       type="button"
                       className="date-input-trigger"
-                      aria-label="Open created before date picker"
+                      aria-label="打开“创建时间早于”日期选择器"
                       onClick={() => {
                         openDateInputPicker(createdBeforeInputRef.current);
                       }}
@@ -6301,7 +6275,7 @@ function App() {
             <section className={`results-panel ${isQuickMode ? "quick-results-panel" : ""}`}>
               {!effectiveSearchMetricsHidden ? (
                 <div className={`results-toolbar ${isQuickMode ? "quick-results-toolbar" : ""}`}>
-                  <div className="results-scope-tabs" aria-label="Result categories">
+                  <div className="results-scope-tabs" aria-label="结果分类">
                     {RESULT_VIEW_TABS.map((item) => (
                       <button
                         key={item.id}
@@ -6338,7 +6312,7 @@ function App() {
                           setShowPreviews(event.currentTarget.checked);
                         }}
                       />
-                      <span>Show previews</span>
+                      <span>显示预览</span>
                     </label>
                     <label className="sort-picker" htmlFor="result-sort">
                       <span className="sort-picker-label">Sort</span>
@@ -6349,16 +6323,14 @@ function App() {
                           setResultSort(event.currentTarget.value as ResultSortMode);
                         }}
                       >
-                        <option value="relevance">Best match</option>
-                        <option value="newest">Newest</option>
-                        <option value="largest">Largest</option>
-                        <option value="name">Name A-Z</option>
+                        <option value="relevance">最佳匹配</option>
+                        <option value="newest">最新</option>
+                        <option value="largest">最大</option>
+                        <option value="name">名称 A-Z</option>
                       </select>
                     </label>
                     {hasFilters ? (
-                      <button type="button" className="clear-filters" onClick={clearSearchFilters}>
-                        Clear filters
-                      </button>
+                      <button type="button" className="clear-filters" onClick={clearSearchFilters}>清除筛选</button>
                     ) : null}
                   </div>
                 </div>
@@ -6373,13 +6345,13 @@ function App() {
                 !searchError &&
                 visibleResults.length === 0 &&
                 (trimmedQuery || hasFilters) ? (
-                <p className="hint compact-hint">No items match the current filters.</p>
+                <p className="hint compact-hint">没有项目符合当前筛选条件。</p>
               ) : null}
 
               {showRecentActivity ? (
-                <section className="recent-activity-panel" aria-label="Recent searches and files">
+                <section className="recent-activity-panel" aria-label="最近的搜索与文件">
                   <div className="recent-activity-header">
-                    <strong>Recent</strong>
+                    <strong>最近</strong>
                   </div>
 
                   {visibleRecentActivity.length > 0 ? (
@@ -6388,11 +6360,8 @@ function App() {
                     </div>
                   ) : (
                     <div className="recent-activity-empty">
-                      <strong>No recent activity yet</strong>
-                      <span>
-                        Search something or open a result from the list, then it will show up
-                        here.
-                      </span>
+                      <strong>暂无最近活动</strong>
+                      <span>搜索内容或从列表打开结果，它将显示在这里。</span>
                     </div>
                   )}
                 </section>
@@ -6661,9 +6630,7 @@ function App() {
                                     event.stopPropagation();
                                     void revealSearchResult(result);
                                   }}
-                                >
-                                  Folder
-                                </button>
+                                >文件夹</button>
                               ) : null}
                             </div>
                           </li>
@@ -6685,12 +6652,12 @@ function App() {
                       className={`quick-preview-splitter ${quickSplitDragging ? "is-dragging" : ""}`}
                       role="separator"
                       aria-orientation="vertical"
-                      aria-label="Resize quick results and preview panels"
+                      aria-label="调整快捷结果与预览面板大小"
                       aria-valuemin={0}
                       aria-valuemax={100}
                       aria-valuenow={Math.round(effectiveQuickResultsPaneRatio * 100)}
                       tabIndex={0}
-                      title="Drag to resize results and preview. Double-click to reset."
+                      title="拖动以调整结果与预览大小。双击重置。"
                       onMouseDown={(event) => {
                         event.preventDefault();
                         setQuickSplitDragging(true);
@@ -6719,7 +6686,7 @@ function App() {
                   ) : null}
 
                   {isQuickMode ? (
-                    <aside className="quick-preview-panel" aria-label="Selected file preview">
+                    <aside className="quick-preview-panel" aria-label="所选文件预览">
                       {selectedResult ? (
                         <div className="quick-preview-surface">
                           <div
@@ -6833,9 +6800,7 @@ function App() {
                                     onClick={() => {
                                       void revealSearchResult(selectedResult);
                                     }}
-                                  >
-                                    Reveal folder
-                                  </button>
+                                  >在文件夹中显示</button>
                                 ) : null}
                               </div>
                             </div>
@@ -6863,11 +6828,11 @@ function App() {
                                     <strong>{formatBytes(selectedResult.size)}</strong>
                                   </div>
                                   <div className="quick-preview-meta-card">
-                                    <span>Created</span>
+                                    <span>创建时间</span>
                                     <strong>{formatUnix(selectedResult.createdUnix)}</strong>
                                   </div>
                                   <div className="quick-preview-meta-card">
-                                    <span>Modified</span>
+                                    <span>修改时间</span>
                                     <strong>{formatUnix(selectedResult.modifiedUnix)}</strong>
                                   </div>
                                 </>
@@ -6895,7 +6860,7 @@ function App() {
               ) : null}
 
               {isSelectionModeActive ? (
-                <div className="bulk-action-bar" role="toolbar" aria-label="Bulk actions">
+                <div className="bulk-action-bar" role="toolbar" aria-label="批量操作">
                   <div className="bulk-action-summary">
                     <strong>{selectedPathsForBulk.size}</strong>
                     <span>{selectedPathsForBulk.size === 1 ? "item selected" : "items selected"}</span>
@@ -6906,33 +6871,25 @@ function App() {
                       className="bulk-action-btn primary"
                       disabled={selectedPathsForBulk.size === 0}
                       onClick={() => setBulkRenameOpen(true)}
-                    >
-                      Rename
-                    </button>
+                    >重命名</button>
                     <button
                       type="button"
                       className="bulk-action-btn primary"
                       disabled={selectedPathsForBulk.size === 0 || !(syncServerInfo?.running && syncServerInfo.connectedClients > 0)}
                       onClick={handleBulkSendToPhone}
-                    >
-                      Send to phone
-                    </button>
+                    >发送到手机</button>
                     <button
                       type="button"
                       className="bulk-action-btn danger"
                       disabled={selectedPathsForBulk.size === 0}
                       onClick={() => setBulkDeleteOpen(true)}
-                    >
-                      Delete
-                    </button>
+                    >删除</button>
                     <button
                       type="button"
                       className="bulk-action-btn secondary"
                       disabled={selectedPathsForBulk.size === 0}
                       onClick={handleBulkCopyPaths}
-                    >
-                      Copy paths
-                    </button>
+                    >复制路径</button>
                     <button
                       type="button"
                       className="bulk-action-btn ghost"
@@ -6940,9 +6897,7 @@ function App() {
                         setIsSelectionModeActive(false);
                         setSelectedPathsForBulk(new Set<string>());
                       }}
-                    >
-                      Cancel
-                    </button>
+                    >取消</button>
                   </div>
                 </div>
               ) : null}
@@ -6951,13 +6906,13 @@ function App() {
         ) : null}
 
         {activeTab === "duplicates" ? (
-          <section className="tab-panel" aria-label="Find duplicate files">
+          <section className="tab-panel" aria-label="查找重复文件">
             {visibleStatusError ? <p className="error-row">{visibleStatusError}</p> : null}
             {driveError ? <p className="error-row">{driveError}</p> : null}
 
             <section className="duplicate-controls">
               <label className="duplicate-size-input">
-                <span>Min file size (MB)</span>
+                <span>最小文件大小（MB）</span>
                 <NumberInputField
                   min={0}
                   step={1}
@@ -6990,9 +6945,7 @@ function App() {
                 </button>
               ) : null}
               {duplicateGroups.length > 0 && !duplicatesLoading && !duplicateScanStatus.running ? (
-                <button type="button" className="ghost-button" onClick={clearDuplicateResults}>
-                  Clear results
-                </button>
+                <button type="button" className="ghost-button" onClick={clearDuplicateResults}>清除结果</button>
               ) : null}
             </section>
 
@@ -7039,13 +6992,11 @@ function App() {
                 </div>
               ) : null}
 
-              {duplicatesLoading ? <p className="hint compact-hint">Scanning for duplicates...</p> : null}
+              {duplicatesLoading ? <p className="hint compact-hint">正在扫描重复文件……</p> : null}
               {duplicateNotice ? <p className="info-row">{duplicateNotice}</p> : null}
               {duplicatesError ? <p className="error-row">{duplicatesError}</p> : null}
               {!duplicatesLoading && !duplicatesError && duplicateGroups.length === 0 ? (
-                <p className="hint compact-hint">
-                  Run a duplicate scan to group files with identical content.
-                </p>
+                <p className="hint compact-hint">运行重复扫描以将内容相同的文件分组。</p>
               ) : null}
 
               <ul className="results-list">
@@ -7056,7 +7007,7 @@ function App() {
                     <li key={`${group.groupId}:summary`} className="result-row duplicate-summary-row">
                       <div className="result-icon duplicate-group-icon">DP</div>
                       <div className="result-main duplicate-group-main">
-                        <span className="duplicate-group-label">Group</span>
+                        <span className="duplicate-group-label">分组</span>
                         <strong>{`${group.fileCount.toLocaleString()} matching files`}</strong>
                         <span>
                           {hiddenCount > 0
@@ -7080,8 +7031,8 @@ function App() {
                       <li key={`${group.groupId}:empty`} className="result-row duplicate-empty-row">
                         <div className="result-icon">--</div>
                         <div className="result-main">
-                          <strong>No files available in this group</strong>
-                          <span>Try running scan again.</span>
+                          <strong>该分组中没有可用文件</strong>
+                          <span>请尝试重新运行扫描。</span>
                         </div>
                         <div className="result-meta" />
                         <div className="result-actions" />
@@ -7105,7 +7056,7 @@ function App() {
                           className="result-row clickable duplicate-file-row-flat"
                           role="button"
                           tabIndex={0}
-                          title="Click to reveal in folder, double-click to open"
+                          title="单击在文件夹中显示，双击打开"
                           onClick={() => {
                             if (hasPath) {
                               if (hasSelectedText()) {
@@ -7168,15 +7119,13 @@ function App() {
                                   void revealResult(cleanedPath);
                                 }
                               }}
-                            >
-                              Folder
-                            </button>
+                            >文件夹</button>
                             <button
                               type="button"
                               className="row-action danger-row-action"
                               disabled={!hasPath}
-                              title="Delete"
-                              aria-label="Delete duplicate"
+                              title="删除"
+                              aria-label="删除重复项"
                               onClick={(event) => {
                                 event.stopPropagation();
                                 if (!hasPath) {
@@ -7229,7 +7178,7 @@ function App() {
                     event.stopPropagation();
                   }}
                 >
-                  <h3>Delete duplicate?</h3>
+                  <h3>删除重复项？</h3>
                   <p>
                     {duplicateDeleteCandidate.name || "Selected file"}
                   </p>
@@ -7246,7 +7195,7 @@ function App() {
                         setDuplicateDeleteToRecycleBin(event.currentTarget.checked);
                       }}
                     />
-                    <span>Move to Recycle Bin</span>
+                    <span>移到回收站</span>
                   </label>
                   <div className="modal-actions">
                     <button
@@ -7256,9 +7205,7 @@ function App() {
                       onClick={() => {
                         setDuplicateDeleteCandidate(null);
                       }}
-                    >
-                      Cancel
-                    </button>
+                    >取消</button>
                     <button
                       type="button"
                       className="row-action danger-row-action"
@@ -7273,7 +7220,7 @@ function App() {
                           : "Deleting..."
                         : duplicateDeleteToRecycleBin
                           ? "Recycle"
-                          : "Delete"}
+                          : "删除"}
                     </button>
                   </div>
                 </div>
@@ -7283,14 +7230,12 @@ function App() {
         ) : null}
 
         {activeTab === "advanced" ? (
-          <section className="tab-panel scrollable-tab-panel" aria-label="App settings">
+          <section className="tab-panel scrollable-tab-panel" aria-label="应用设置">
             <div className="about-panel advanced-panel">
               <div className="about-header">
                 <div>
-                  <h2>Settings</h2>
-                  <p className="about-tagline">
-                    Manage desktop behavior and default result count for OmniSearch.
-                  </p>
+                  <h2>设置</h2>
+                  <p className="about-tagline">管理 OmniSearch 的桌面行为与默认结果数量。</p>
                 </div>
               </div>
 
@@ -7298,11 +7243,8 @@ function App() {
                 <div className="advanced-settings-section">
                   <div className="advanced-section-header">
                     <div>
-                      <h3>Desktop behavior</h3>
-                      <p className="advanced-note">
-                        Control the tray behavior and the global shortcut that opens the quick
-                        window as a normal desktop window.
-                      </p>
+                      <h3>桌面行为</h3>
+                      <p className="advanced-note">控制托盘行为，以及将快捷窗口作为普通桌面窗口打开的全局快捷键。</p>
                     </div>
                     <span className="theme-mode-status">
                       {desktopSettings.shortcutEnabled
@@ -7329,11 +7271,8 @@ function App() {
                       }}
                     >
                       <div className="settings-switch-copy">
-                        <strong>Keep app running in the background</strong>
-                        <span>
-                          When enabled, clicking the window X button hides OmniSearch to the tray
-                          instead of quitting.
-                        </span>
+                        <strong>在后台保持运行</strong>
+                        <span>启用后，点击窗口 X 按钮会将 OmniSearch 隐藏到托盘而非退出。</span>
                       </div>
                       <span
                         className={`scan-switch settings-switch-toggle settings-switch-toggle-button ${desktopSettingsDraft.backgroundModeEnabled ? "is-on" : ""
@@ -7362,11 +7301,8 @@ function App() {
                       }}
                     >
                       <div className="settings-switch-copy">
-                        <strong>Enable global shortcut</strong>
-                        <span>
-                          Register a system-wide hotkey that opens the quick search window without
-                          using overlay or always-on-top behavior.
-                        </span>
+                        <strong>启用全局快捷键</strong>
+                        <span>注册一个系统级热键，无需浮层或置顶行为即可打开快捷搜索窗口。</span>
                       </div>
                       <span
                         className={`scan-switch settings-switch-toggle settings-switch-toggle-button ${desktopSettingsDraft.shortcutEnabled ? "is-on" : ""
@@ -7397,11 +7333,8 @@ function App() {
                       }}
                     >
                       <div className="settings-switch-copy">
-                        <strong>Remember full window size and position</strong>
-                        <span>
-                          Reopen the full workspace where you last left it. Quick Window keeps its
-                          fixed launcher-style layout.
-                        </span>
+                        <strong>记住完整窗口的大小与位置</strong>
+                        <span>在您上次离开的位置重新打开完整工作区。快捷窗口保持其固定的启动器式布局。</span>
                       </div>
                       <span
                         className={`scan-switch settings-switch-toggle settings-switch-toggle-button ${desktopSettingsDraft.rememberWindowBounds ? "is-on" : ""
@@ -7414,7 +7347,7 @@ function App() {
                     </button>
 
                     <label className="desktop-shortcut-field" htmlFor="desktop-shortcut-input">
-                      <span>Shortcut</span>
+                      <span>快捷键</span>
                       <input
                         id="desktop-shortcut-input"
                         type="text"
@@ -7437,9 +7370,8 @@ function App() {
                           setDesktopSettingsMessage(null);
                         }}
                       />
-                      <small className="desktop-shortcut-hint">
-                        Type a shortcut like <code>Alt+Shift+S</code> or <code>Ctrl+Alt+S</code>.
-                        The saved shortcut updates immediately after you save.
+                      <small className="desktop-shortcut-hint">输入快捷键，例如<code>Alt+Shift+S</code> 或 <code>Ctrl+Alt+S</code>.
+                        保存后快捷键立即更新。
                       </small>
                     </label>
 
@@ -7473,9 +7405,7 @@ function App() {
                           setDesktopSettingsError(null);
                           setDesktopSettingsMessage(null);
                         }}
-                      >
-                        Reset changes
-                      </button>
+                      >重置更改</button>
                       <button
                         type="button"
                         className="ghost-button"
@@ -7490,19 +7420,13 @@ function App() {
                       </button>
                     </div>
                     {desktopSettingsDirty ? (
-                      <p className="advanced-pending">
-                        Pending desktop setting changes. Click Save desktop settings to apply them.
-                      </p>
+                      <p className="advanced-pending">有未保存的桌面设置更改。点击“保存桌面设置”以应用。</p>
                     ) : null}
                   </div>
 
-                  <p className="advanced-note">
-                    Tray menu includes Open Quick Window, Open Main App, Hide, and Quit. Shortcut
-                    changes apply immediately after saving. Quick Window always keeps its fixed
-                    launcher layout.
-                  </p>
+                  <p className="advanced-note">托盘菜单包含“打开快捷窗口”“打开主程序”“隐藏”和“退出”。保存后快捷键更改立即生效。快捷窗口始终保持其固定的启动器布局。</p>
                   {desktopSettingsLoading ? (
-                    <p className="advanced-note">Loading desktop settings...</p>
+                    <p className="advanced-note">正在加载桌面设置……</p>
                   ) : null}
                   {desktopSettingsError ? (
                     <p className="advanced-error">{desktopSettingsError}</p>
@@ -7540,7 +7464,7 @@ function App() {
                       disabled={!searchLimitHasPendingChanges}
                       onClick={applySearchLimitPreference}
                     >
-                      {searchLimitHasPendingChanges ? "Apply update" : "Updated"}
+                      {searchLimitHasPendingChanges ? "应用更新" : "已更新"}
                     </button>
                     <button
                       type="button"
@@ -7563,7 +7487,7 @@ function App() {
                   <p className="advanced-note">
                     {`Current default: ${defaultSearchLimit.toLocaleString()} | Current active limit: ${searchLimit.toLocaleString()}`}
                   </p>
-                  <p className="advanced-note">Load more uses this same amount each click.</p>
+                  <p className="advanced-note">“加载更多”每次点击使用相同数量。</p>
                   {searchLimitError ? <p className="advanced-error">{searchLimitError}</p> : null}
                   {searchLimitMessage ? <p className="advanced-success">{searchLimitMessage}</p> : null}
                 </div>
@@ -7571,11 +7495,8 @@ function App() {
                 <div className="advanced-settings-section">
                   <div className="advanced-section-header">
                     <div>
-                      <h3>Installed app search</h3>
-                      <p className="advanced-note">
-                        Search and launch installed apps alongside files in both the full workspace
-                        and Quick Window.
-                      </p>
+                      <h3>已安装应用搜索</h3>
+                      <p className="advanced-note">在完整工作区和快捷窗口中，与文件一起搜索并启动已安装应用。</p>
                     </div>
                     <span className="theme-mode-status">
                       {includeInstalledApps
@@ -7597,10 +7518,8 @@ function App() {
                     }}
                   >
                     <div className="settings-switch-copy">
-                      <strong>Include installed apps in search results</strong>
-                      <span>
-                        Shows launchable apps with their real icons.
-                      </span>
+                      <strong>在搜索结果中包含已安装应用</strong>
+                      <span>显示可启动应用及其真实图标。</span>
                     </div>
                     <span
                       className={`scan-switch settings-switch-toggle settings-switch-toggle-button ${includeInstalledApps ? "is-on" : ""
@@ -7625,21 +7544,15 @@ function App() {
                       {installedAppsLoading ? "Refreshing apps..." : "Refresh installed apps"}
                     </button>
                   </div>
-                  <p className="advanced-note">
-                    Apps do not use the file index. OmniSearch reads the Windows app catalog and
-                    merges app matches into the same Search view.
-                  </p>
+                  <p className="advanced-note">应用不使用文件索引。OmniSearch 读取 Windows 应用目录，并将应用匹配合并到同一搜索视图。</p>
                   {installedAppsError ? <p className="advanced-error">{installedAppsError}</p> : null}
                 </div>
 
                 <div className="advanced-settings-section">
                   <div className="advanced-section-header">
                     <div>
-                      <h3>Search history</h3>
-                      <p className="advanced-note">
-                        Show recent searches and opened results in the full workspace when the
-                        search box is empty.
-                      </p>
+                      <h3>搜索历史</h3>
+                      <p className="advanced-note">搜索框为空时，在完整工作区显示最近搜索与打开的结果。</p>
                     </div>
                     <span className="theme-mode-status">
                       {recentActivityEnabled ? "History on" : "History off"}
@@ -7657,7 +7570,7 @@ function App() {
                     }}
                   >
                     <div className="settings-switch-copy">
-                      <strong>Show recent searches in the empty search area</strong>
+                      <strong>在空白搜索区域显示最近搜索</strong>
                       <span>
                         Keeps up to {RECENT_ACTIVITY_LIMIT} recent searches and opened files or
                         apps ready to reopen from the Search tab.
@@ -7672,9 +7585,7 @@ function App() {
                       <span>{recentActivityEnabled ? "On" : "Off"}</span>
                     </span>
                   </button>
-                  <p className="advanced-note">
-                    Turn this off to hide the recent panel and stop adding new history entries.
-                  </p>
+                  <p className="advanced-note">关闭以隐藏最近面板并停止添加新历史记录。</p>
                 </div>
               </div>
             </div>
@@ -7682,15 +7593,12 @@ function App() {
         ) : null}
 
         {activeTab === "themes" ? (
-          <section className="tab-panel scrollable-tab-panel" aria-label="Theme gallery">
+          <section className="tab-panel scrollable-tab-panel" aria-label="主题画廊">
             <div className="about-panel advanced-panel">
               <div className="about-header">
                 <div>
-                  <h2>Themes</h2>
-                  <p className="about-tagline">
-                    Pick a complete app style for OmniSearch. Every preset adapts to both dark and
-                    light mode.
-                  </p>
+                  <h2>主题</h2>
+                  <p className="about-tagline">为 OmniSearch 选择完整的应用风格。每个预设都适配深色和浅色模式。</p>
                 </div>
                 <div className="theme-header-tools">
                   <span className="theme-mode-status">
@@ -7711,7 +7619,7 @@ function App() {
 
               <div className="advanced-settings">
                 <div className="advanced-settings-section">
-                  <div className="theme-grid" aria-label="Theme presets">
+                  <div className="theme-grid" aria-label="主题预设">
                     {THEME_PRESET_IDS.map((presetId) => {
                       const preset = themePresetById(presetId);
                       const isActive = preset.id === themePreset;
@@ -7745,7 +7653,7 @@ function App() {
 
                             <div className="theme-mini" style={themePreviewStyle(preset.preview.light)}>
                               <div className="theme-mini-header">
-                                <span className="theme-mini-label">Light</span>
+                                <span className="theme-mini-label">浅色</span>
                                 <span className="theme-mini-dot" />
                               </div>
                               <div className="theme-mini-search-bar" />
@@ -7785,20 +7693,18 @@ function App() {
         ) : null}
 
         {activeTab === "syntax" ? (
-          <section className="tab-panel scrollable-tab-panel" aria-label="OmniSearch query syntax help">
+          <section className="tab-panel scrollable-tab-panel" aria-label="OmniSearch 查询语法帮助">
             <div className="about-panel advanced-panel syntax-help-page">
               <div className="about-header">
                 <div>
-                  <h2>Search Syntax</h2>
-                  <p className="about-tagline">
-                    Only operators currently supported in OmniSearch are shown here.
-                  </p>
+                  <h2>搜索语法</h2>
+                  <p className="about-tagline">此处仅显示 OmniSearch 当前支持的运算符。</p>
                 </div>
-                <span className="theme-mode-status">Examples jump back to Search</span>
+                <span className="theme-mode-status">示例跳回搜索</span>
               </div>
 
               <div className="syntax-help-layout syntax-help-layout-panel">
-                <aside className="syntax-help-sidebar" aria-label="Syntax topics">
+                <aside className="syntax-help-sidebar" aria-label="语法主题">
                   {SEARCH_SYNTAX_HELP_SECTIONS.map((section) => (
                     <button
                       key={section.id}
@@ -7827,7 +7733,7 @@ function App() {
                   </div>
 
                   <div className="syntax-help-section">
-                    <span className="syntax-help-section-label">How it works</span>
+                    <span className="syntax-help-section-label">工作原理</span>
                     <ul className="syntax-help-list">
                       {activeSearchSyntaxHelpSection.details.map((detail) => (
                         <li key={detail}>{detail}</li>
@@ -7836,7 +7742,7 @@ function App() {
                   </div>
 
                   <div className="syntax-help-section">
-                    <span className="syntax-help-section-label">Examples</span>
+                    <span className="syntax-help-section-label">示例</span>
                     <div className="syntax-help-example-grid">
                       {activeSearchSyntaxHelpSection.examples.map((example) => (
                         <button
@@ -7846,10 +7752,10 @@ function App() {
                           onClick={() => {
                             applySearchSyntaxExample(example);
                           }}
-                          title="Use this example in the search box"
+                          title="在搜索框中使用此示例"
                         >
                           <code>{example}</code>
-                          <span>Use example</span>
+                          <span>使用示例</span>
                         </button>
                       ))}
                     </div>
@@ -7857,7 +7763,7 @@ function App() {
 
                   {activeSearchSyntaxHelpSection.notes?.length ? (
                     <div className="syntax-help-section">
-                      <span className="syntax-help-section-label">Notes</span>
+                      <span className="syntax-help-section-label">说明</span>
                       <ul className="syntax-help-list is-notes">
                         {activeSearchSyntaxHelpSection.notes.map((note) => (
                           <li key={note}>{note}</li>
@@ -7872,23 +7778,21 @@ function App() {
         ) : null}
 
         {activeTab === "about" ? (
-          <section className="tab-panel scrollable-tab-panel" aria-label="About OmniSearch and developer">
+          <section className="tab-panel scrollable-tab-panel" aria-label="关于 OmniSearch 与开发者">
             <div className="about-panel about-panel-flat sync-panel">
               <div className="sync-title-row">
                 <div>
-                  <h2>About OmniSearch</h2>
-                  <p className="about-tagline">
-                    Fast local search across your drives with rich filters.
-                  </p>
+                  <h2>关于 OmniSearch</h2>
+                  <p className="about-tagline">跨驱动器的高速本地搜索，带丰富筛选。</p>
                   <div className="about-version">
-                    <span className="about-version-label">Version</span>
+                    <span className="about-version-label">版本</span>
                     <span className="about-version-value">
                       {appVersion ? `v${appVersion}` : "Loading..."}
                     </span>
                   </div>
                 </div>
                 <div className="about-developer">
-                  <span className="about-label">Built by</span>
+                  <span className="about-label">由……开发</span>
                   <span className="about-name">{DEVELOPER_NAME}</span>
                 </div>
               </div>
@@ -7909,14 +7813,11 @@ function App() {
               </div>
 
               <div className="about-sections">
-                <section className="about-support-card" aria-label="Support the developer">
+                <section className="about-support-card" aria-label="支持开发者">
                   <div className="about-support-copy">
-                    <span className="about-support-label">Donate</span>
-                    <strong>Buy me a coffee</strong>
-                    <p>
-                      If OmniSearch helps your workflow, you can support future updates and desktop
-                      tools here.
-                    </p>
+                    <span className="about-support-label">捐赠</span>
+                    <strong>请我喝杯咖啡</strong>
+                    <p>如果 OmniSearch 对您的工作有帮助，您可以在此支持未来的更新与桌面工具。</p>
                   </div>
                   <button
                     type="button"
@@ -7926,17 +7827,17 @@ function App() {
                     }}
                   >
                     <BuyMeCoffeeIcon />
-                    <span>Buy me a coffee</span>
+                    <span>请我喝杯咖啡</span>
                   </button>
                 </section>
 
                 <section
                   className="about-apps-section about-apps-section-flat"
-                  aria-label="More apps by Eyuel"
+                  aria-label="Eyuel 的更多应用"
                 >
                   <div className="about-section-heading">
-                    <h3>More Apps by Eyuel Engida</h3>
-                    <p>Other desktop apps.</p>
+                    <h3>Eyuel Engida 的更多应用</h3>
+                    <p>其他桌面应用。</p>
                   </div>
                   <div className="developer-app-grid">
                     {MORE_APPS.map((item) => (
@@ -7965,7 +7866,7 @@ function App() {
                         <div className="developer-app-card-footer">
                           <span className="developer-app-link">
                             <MicrosoftStoreIcon />
-                            <span>Store</span>
+                            <span>商店</span>
                           </span>
                         </div>
                       </button>
@@ -7978,14 +7879,12 @@ function App() {
         ) : null}
 
         {activeTab === "sync" ? (
-          <section className="tab-panel scrollable-tab-panel" aria-label="Mobile Sync Settings">
+          <section className="tab-panel scrollable-tab-panel" aria-label="手机同步设置">
             <div className="about-panel about-panel-flat sync-panel">
               <div className="about-header">
                 <div>
-                  <h2>Mobile App Sync</h2>
-                  <p className="about-tagline">
-                    Connect the native OmniSearch Android companion app to search, view duplicates, and trigger actions remotely.
-                  </p>
+                  <h2>手机应用同步</h2>
+                  <p className="about-tagline">连接原生 OmniSearch Android 配套应用，以远程搜索、查看重复项并触发操作。</p>
                   <div className="sync-status-row">
                     <span className={`sync-status-pill ${syncServerInfo?.running ? "live" : "idle"}`}>
                       <span className="status-dot" aria-hidden="true" />
@@ -8002,7 +7901,7 @@ function App() {
                         <button
                           type="button"
                           className="sync-icon-button"
-                          title="Refresh server status and IP address"
+                          title="刷新服务器状态与 IP 地址"
                           disabled={syncBusy}
                           onClick={async () => {
                             setSyncBusy(true);
@@ -8040,12 +7939,10 @@ function App() {
               )}
 
               {!syncServerInfo || !syncServerInfo.running ? (
-                <section className="sync-empty-state" aria-label="Start Sync Server">
+                <section className="sync-empty-state" aria-label="启动同步服务器">
                   <div className="sync-detail-group">
-                    <span className="sync-label">Setup</span>
-                    <p>
-                      Start the local sync server, then scan the QR code from the Android companion app while both devices are on the same Wi-Fi network.
-                    </p>
+                    <span className="sync-label">配置</span>
+                    <p>启动本地同步服务器，然后在与手机同一 Wi-Fi 网络下，用 Android 配套应用扫描二维码。</p>
                   </div>
                   <div className="sync-actions-row">
                     <button
@@ -8054,7 +7951,7 @@ function App() {
                       disabled={syncBusy}
                       onClick={startSyncServer}
                     >
-                      {syncBusy ? "Starting..." : "Start Sync Server"}
+                      {syncBusy ? "Starting..." : "启动同步服务器"}
                     </button>
                   </div>
                 </section>
@@ -8063,7 +7960,7 @@ function App() {
                   <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "8px" }}>
                     <section
                       className="sync-card"
-                      aria-label="Scan QR Code"
+                      aria-label="扫描二维码"
                       style={{
                         display: "flex",
                         flexDirection: "column",
@@ -8091,19 +7988,15 @@ function App() {
                               <polyline points="20 6 9 17 4 12" />
                             </svg>
                           </div>
-                          <strong style={{ color: "#22c55e", fontSize: "1rem", fontWeight: 600 }}>Connected Successfully</strong>
-                          <p style={{ fontSize: "12px", color: "var(--text-muted)", maxWidth: "240px", margin: 0, lineHeight: "1.45" }}>
-                            Phone is connected and syncing.
-                          </p>
+                          <strong style={{ color: "#22c55e", fontSize: "1rem", fontWeight: 600 }}>连接成功</strong>
+                          <p style={{ fontSize: "12px", color: "var(--text-muted)", maxWidth: "240px", margin: 0, lineHeight: "1.45" }}>手机已连接并同步中。</p>
                         </div>
                       ) : (
                         <>
                           <span
                             className="about-support-label"
                             style={{ letterSpacing: "1.5px", fontSize: "10px", fontWeight: "bold", color: "var(--accent)", textTransform: "uppercase", marginBottom: "10px" }}
-                          >
-                            SCAN QR TO PAIR
-                          </span>
+                          >扫描二维码以配对</span>
                           {syncServerInfo.qrSvg ? (
                             <>
                               <style>{`
@@ -8120,16 +8013,12 @@ function App() {
                             </>
                           ) : (
                             <div style={{ width: "130px", height: "130px", background: "var(--surface-muted)", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <span style={{ color: "var(--text-muted)", fontSize: "11px" }}>Generating QR...</span>
+                              <span style={{ color: "var(--text-muted)", fontSize: "11px" }}>正在生成二维码……</span>
                             </div>
                           )}
-                          <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: "10px 0 14px", maxWidth: "220px", lineHeight: "1.45" }}>
-                            Open the scanner on the Android settings tab to pair automatically.
-                          </p>
+                          <p style={{ fontSize: "11px", color: "var(--text-muted)", margin: "10px 0 14px", maxWidth: "220px", lineHeight: "1.45" }}>在 Android 设置选项卡打开扫描器以自动配对。</p>
                           <div style={{ width: "100%", textAlign: "left" }}>
-                            <span style={{ display: "block", fontSize: "9px", fontWeight: "bold", color: "var(--text-muted)", letterSpacing: "0.8px", marginBottom: "5px", textTransform: "uppercase" }}>
-                              Pairing Address URI
-                            </span>
+                            <span style={{ display: "block", fontSize: "9px", fontWeight: "bold", color: "var(--text-muted)", letterSpacing: "0.8px", marginBottom: "5px", textTransform: "uppercase" }}>配对地址 URI</span>
                             <div style={{ display: "flex", gap: "6px", width: "100%" }}>
                               <input
                                 type="text"
@@ -8203,9 +8092,9 @@ function App() {
                   </div>
 
                   {syncServerInfo?.fileTransfers?.length ? (
-                    <section className="sync-transfer-panel" aria-label="Phone transfer progress">
+                    <section className="sync-transfer-panel" aria-label="手机传输进度">
                       <div className="sync-transfer-header">
-                        <span className="sync-label">Phone Transfers</span>
+                        <span className="sync-label">手机传输</span>
                         <span>{syncServerInfo.fileTransfers.length} recent</span>
                       </div>
                       <div className="sync-transfer-list">
@@ -8221,7 +8110,7 @@ function App() {
                                   {transfer.status === "completed" && transfer.path && (
                                     <button
                                       className="sync-transfer-folder-btn"
-                                      title="Open file location"
+                                      title="打开文件位置"
                                       onClick={() => revealResult(transfer.path)}
                                       style={{
                                         background: "none",
@@ -8285,7 +8174,7 @@ function App() {
               }}
             >
               {activeSearchResultMenu.isDirectory
-                ? "Open folder"
+                ? "打开文件夹"
                 : activeSearchResultIsApp
                   ? "Open app"
                   : "Open file"}
@@ -8319,7 +8208,7 @@ function App() {
                     });
                   }}
                 >
-                  <span className="result-context-menu-item-label">Select file</span>
+                  <span className="result-context-menu-item-label">选择文件</span>
                 </button>
                 <button
                   type="button"
@@ -8333,7 +8222,7 @@ function App() {
                   <span className="result-context-menu-item-icon" aria-hidden="true">
                     <ConsoleIcon />
                   </span>
-                  <span className="result-context-menu-item-label">Open path in console</span>
+                  <span className="result-context-menu-item-label">在控制台中打开路径</span>
                 </button>
                 {activeSearchResultCanSendToPhone ? (
                   <button
@@ -8348,7 +8237,7 @@ function App() {
                     <span className="result-context-menu-item-icon" aria-hidden="true">
                       <PhoneIcon />
                     </span>
-                    <span className="result-context-menu-item-label">Send to phone</span>
+                    <span className="result-context-menu-item-label">发送到手机</span>
                   </button>
                 ) : null}
                 <button
@@ -8358,9 +8247,7 @@ function App() {
                   onClick={() => {
                     openSearchResultRename(activeSearchResultMenu, searchResultContextMenu.rowKey);
                   }}
-                >
-                  Rename
-                </button>
+                >重命名</button>
 
                 <div className="result-context-menu-divider" />
               </>
@@ -8389,9 +8276,7 @@ function App() {
                   closeSearchResultContextMenu();
                   void handleSearchResultCopy(resultDisplayName(activeSearchResultMenu), "folder name");
                 }}
-              >
-                Copy folder name
-              </button>
+              >复制文件夹名称</button>
             ) : !activeSearchResultIsApp ? (
               <>
                 <button
@@ -8405,9 +8290,7 @@ function App() {
                       "filename",
                     );
                   }}
-                >
-                  Copy filename
-                </button>
+                >复制文件名</button>
                 <button
                   type="button"
                   className="result-context-menu-item"
@@ -8416,9 +8299,7 @@ function App() {
                     closeSearchResultContextMenu();
                     void handleSearchResultCopy(resultDisplayName(activeSearchResultMenu), "full filename");
                   }}
-                >
-                  Copy filename + extension
-                </button>
+                >复制文件名+扩展名</button>
               </>
             ) : null}
 
@@ -8433,9 +8314,7 @@ function App() {
                   onClick={() => {
                     openSearchResultDelete(activeSearchResultMenu, searchResultContextMenu.rowKey);
                   }}
-                >
-                  Delete
-                </button>
+                >删除</button>
               </>
             ) : null}
           </div>
@@ -8469,7 +8348,7 @@ function App() {
                       {`${selectedResultPosition} of ${visibleResults.length.toLocaleString()}`}
                     </span>
                   </div>
-                  <p className="quick-look-hint">Esc to close, Arrow keys to switch results, Enter to open.</p>
+                  <p className="quick-look-hint">Esc 关闭，方向键切换结果，Enter 打开。</p>
                 </div>
                 <div className="quick-look-actions">
                   <button
@@ -8481,7 +8360,7 @@ function App() {
                     }}
                   >
                     {selectedResultIsDirectory
-                      ? "Open folder"
+                      ? "打开文件夹"
                       : isAppSearchResult(selectedResult)
                         ? "Open app"
                         : "Open file"}
@@ -8494,9 +8373,7 @@ function App() {
                         closeQuickLook({ restoreFocus: false });
                         void revealSearchResult(selectedResult);
                       }}
-                    >
-                      Reveal folder
-                    </button>
+                    >在文件夹中显示</button>
                   ) : null}
                   <button
                     type="button"
@@ -8504,9 +8381,7 @@ function App() {
                     onClick={() => {
                       closeQuickLook();
                     }}
-                  >
-                    Close
-                  </button>
+                  >关闭</button>
                 </div>
               </div>
 
@@ -8619,11 +8494,11 @@ function App() {
                           <strong>{formatBytes(selectedResult.size)}</strong>
                         </div>
                         <div className="quick-look-meta-card">
-                          <span>Created</span>
+                          <span>创建时间</span>
                           <strong>{formatUnix(selectedResult.createdUnix)}</strong>
                         </div>
                         <div className="quick-look-meta-card">
-                          <span>Modified</span>
+                          <span>修改时间</span>
                           <strong>{formatUnix(selectedResult.modifiedUnix)}</strong>
                         </div>
                       </>
@@ -8691,7 +8566,7 @@ function App() {
               <p className="modal-path">{searchResultRenameDraft.path}</p>
 
               <label className="modal-input-group">
-                <span>New name</span>
+                <span>新名称</span>
                 <input
                   ref={searchResultRenameInputRef}
                   type="text"
@@ -8732,9 +8607,7 @@ function App() {
                   onClick={() => {
                     setSearchResultRenameDraft(null);
                   }}
-                >
-                  Cancel
-                </button>
+                >取消</button>
                 <button
                   type="button"
                   className="ghost-button"
@@ -8743,7 +8616,7 @@ function App() {
                     void confirmSearchResultRename();
                   }}
                 >
-                  {searchResultRenameBusy ? "Renaming..." : "Rename"}
+                  {searchResultRenameBusy ? "Renaming..." : "重命名"}
                 </button>
               </div>
             </div>
@@ -8779,7 +8652,7 @@ function App() {
                     setSearchResultDeleteToRecycleBin(event.currentTarget.checked);
                   }}
                 />
-                <span>Move to Recycle Bin</span>
+                <span>移到回收站</span>
               </label>
               <div className="modal-actions">
                 <button
@@ -8789,9 +8662,7 @@ function App() {
                   onClick={() => {
                     setSearchResultDeleteCandidate(null);
                   }}
-                >
-                  Cancel
-                </button>
+                >取消</button>
                 <button
                   type="button"
                   className="row-action danger-row-action"
@@ -8806,7 +8677,7 @@ function App() {
                       : "Deleting..."
                     : searchResultDeleteToRecycleBin
                       ? "Recycle"
-                      : "Delete"}
+                      : "删除"}
                 </button>
               </div>
             </div>
@@ -8830,7 +8701,7 @@ function App() {
                 event.stopPropagation();
               }}
             >
-              <h3>Delete selected items?</h3>
+              <h3>删除所选项目？</h3>
               <p style={{ margin: "8px 0 16px 0", fontSize: "0.9rem", color: "var(--text-muted)" }}>
                 {selectedPathsForBulk.size} {selectedPathsForBulk.size === 1 ? "item" : "items"} will be deleted.
               </p>
@@ -8843,7 +8714,7 @@ function App() {
                     setBulkDeleteRecycleBin(event.currentTarget.checked);
                   }}
                 />
-                <span>Move to Recycle Bin</span>
+                <span>移到回收站</span>
               </label>
               <div className="modal-actions">
                 <button
@@ -8853,9 +8724,7 @@ function App() {
                   onClick={() => {
                     setBulkDeleteOpen(false);
                   }}
-                >
-                  Cancel
-                </button>
+                >取消</button>
                 <button
                   type="button"
                   className="row-action danger-row-action"
@@ -8870,7 +8739,7 @@ function App() {
                       : "Deleting..."
                     : bulkDeleteRecycleBin
                       ? "Recycle"
-                      : "Delete"}
+                      : "删除"}
                 </button>
               </div>
             </div>
@@ -8895,7 +8764,7 @@ function App() {
               }}
               style={{ width: "min(500px, 95vw)" }}
             >
-              <h3>Bulk Rename</h3>
+              <h3>批量重命名</h3>
               <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", marginBottom: "16px" }}>
                 Renaming {selectedPathsForBulk.size} {selectedPathsForBulk.size === 1 ? "item" : "items"}.
               </p>
@@ -8914,9 +8783,7 @@ function App() {
                     cursor: "pointer"
                   }}
                   onClick={() => setBulkRenameMode("replace")}
-                >
-                  Find & Replace
-                </button>
+                >查找与替换</button>
                 <button
                   type="button"
                   className={`tab-button ${bulkRenameMode === "prefix_suffix" ? "active" : ""}`}
@@ -8930,9 +8797,7 @@ function App() {
                     cursor: "pointer"
                   }}
                   onClick={() => setBulkRenameMode("prefix_suffix")}
-                >
-                  Add Prefix/Suffix
-                </button>
+                >添加前缀/后缀</button>
                 <button
                   type="button"
                   className={`tab-button ${bulkRenameMode === "enumerate" ? "active" : ""}`}
@@ -8946,31 +8811,29 @@ function App() {
                     cursor: "pointer"
                   }}
                   onClick={() => setBulkRenameMode("enumerate")}
-                >
-                  Enumerate
-                </button>
+                >编号</button>
               </div>
 
               {bulkRenameMode === "replace" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
                   <label className="modal-input-group">
-                    <span>Find text</span>
+                    <span>查找文本</span>
                     <input
                       type="text"
                       value={bulkRenameReplaceSearch}
                       disabled={bulkRenameBusy}
                       onChange={(e) => setBulkRenameReplaceSearch(e.target.value)}
-                      placeholder="e.g. old-name"
+                      placeholder="例如：旧名称"
                     />
                   </label>
                   <label className="modal-input-group">
-                    <span>Replace with</span>
+                    <span>替换为</span>
                     <input
                       type="text"
                       value={bulkRenameReplaceWith}
                       disabled={bulkRenameBusy}
                       onChange={(e) => setBulkRenameReplaceWith(e.target.value)}
-                      placeholder="e.g. new-name"
+                      placeholder="例如：新名称"
                     />
                   </label>
                 </div>
@@ -8979,23 +8842,23 @@ function App() {
               {bulkRenameMode === "prefix_suffix" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
                   <label className="modal-input-group">
-                    <span>Prefix</span>
+                    <span>前缀</span>
                     <input
                       type="text"
                       value={bulkRenamePrefix}
                       disabled={bulkRenameBusy}
                       onChange={(e) => setBulkRenamePrefix(e.target.value)}
-                      placeholder="Prefix to prepend"
+                      placeholder="要添加的前缀"
                     />
                   </label>
                   <label className="modal-input-group">
-                    <span>Suffix</span>
+                    <span>后缀</span>
                     <input
                       type="text"
                       value={bulkRenameSuffix}
                       disabled={bulkRenameBusy}
                       onChange={(e) => setBulkRenameSuffix(e.target.value)}
-                      placeholder="Suffix to append"
+                      placeholder="要添加的后缀"
                     />
                   </label>
                 </div>
@@ -9004,18 +8867,18 @@ function App() {
               {bulkRenameMode === "enumerate" && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginBottom: "20px" }}>
                   <label className="modal-input-group">
-                    <span>Base Name</span>
+                    <span>基础名称</span>
                     <input
                       type="text"
                       value={bulkRenameEnumerateBase}
                       disabled={bulkRenameBusy}
                       onChange={(e) => setBulkRenameEnumerateBase(e.target.value)}
-                      placeholder="Base filename"
+                      placeholder="基础文件名"
                     />
                   </label>
                   <div style={{ display: "flex", gap: "12px" }}>
                     <label className="modal-input-group" style={{ flex: 1 }}>
-                      <span>Start Number</span>
+                      <span>起始数字</span>
                       <input
                         type="number"
                         min="0"
@@ -9025,7 +8888,7 @@ function App() {
                       />
                     </label>
                     <label className="modal-input-group" style={{ flex: 1 }}>
-                      <span>Digits</span>
+                      <span>位数</span>
                       <input
                         type="number"
                         min="1"
@@ -9047,9 +8910,7 @@ function App() {
                   onClick={() => {
                     setBulkRenameOpen(false);
                   }}
-                >
-                  Cancel
-                </button>
+                >取消</button>
                 <button
                   type="button"
                   className="ghost-button"
@@ -9058,7 +8919,7 @@ function App() {
                     void confirmBulkRename();
                   }}
                 >
-                  {bulkRenameBusy ? "Renaming..." : "Rename"}
+                  {bulkRenameBusy ? "Renaming..." : "重命名"}
                 </button>
               </div>
             </div>
@@ -9116,12 +8977,8 @@ function App() {
                 boxShadow: "0 20px 50px rgba(0,0,0,0.6)"
               }}
             >
-              <h3 style={{ margin: "0 0 4px 0", fontSize: "1.1rem", fontWeight: 700, color: "var(--text-main)" }}>
-                Phone Pairing Request
-              </h3>
-              <p style={{ margin: "0 0 16px 0", fontSize: "0.84rem", color: "var(--text-muted)" }}>
-                A mobile companion device is attempting to connect to your PC.
-              </p>
+              <h3 style={{ margin: "0 0 4px 0", fontSize: "1.1rem", fontWeight: 700, color: "var(--text-main)" }}>手机配对请求</h3>
+              <p style={{ margin: "0 0 16px 0", fontSize: "0.84rem", color: "var(--text-muted)" }}>一台移动配套设备正尝试连接到您的电脑。</p>
 
               <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                 {syncServerInfo.pendingApprovals.map((req) => (
@@ -9165,9 +9022,7 @@ function App() {
                           fontSize: "0.84rem"
                         }}
                         onClick={() => approvePairing(req.deviceId)}
-                      >
-                        Approve Connection
-                      </button>
+                      >批准连接</button>
                       <button
                         type="button"
                         className="row-action danger-row-action"
@@ -9179,9 +9034,7 @@ function App() {
                           fontSize: "0.84rem"
                         }}
                         onClick={() => rejectPairing(req.deviceId)}
-                      >
-                        Reject
-                      </button>
+                      >拒绝</button>
                     </div>
                   </div>
                 ))}

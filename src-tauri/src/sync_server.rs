@@ -1670,7 +1670,7 @@ fn handle_sync_message(
                     if outcome.is_ok() {
                         SyncMessage::Confirm {
                             success: true,
-                            message: format!("Opened file successfully on PC:"),
+                            message: format!("已在电脑上成功打开文件："),
                         }
                     } else {
                         SyncMessage::Confirm {
@@ -1732,7 +1732,7 @@ fn handle_sync_message(
                         let _ = (authorized_path_string, recycle_bin);
                         SyncMessage::Confirm {
                             success: false,
-                            message: "Delete path command only supported on Windows backend"
+                            message: "删除路径命令仅支持 Windows 后端"
                                 .to_string(),
                         }
                     }
